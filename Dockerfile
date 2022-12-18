@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM golang:alpine as build
+FROM --platform=linux/amd64 golang:alpine as build
 
 WORKDIR /app
 
@@ -11,12 +11,12 @@ COPY *.go ./
 RUN go build -o /build
 
 # Stage 2
-FROM alpine:latest
+FROM --platform=linux/amd64 alpine:latest
 
 WORKDIR /
 
 COPY --from=build /build /app
 
-EXPOSE 8080
+EXPOSE 9080
 
 ENTRYPOINT [ "/app" ]
